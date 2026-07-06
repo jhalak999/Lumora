@@ -4,8 +4,6 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.features.auth.models import User
-from app.features.auth.schemas import UserCreate
-from uuid import UUID
 
 class AuthRepository:
     def __init__(self, db: Session):

@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
-
+from sqlalchemy.exc import IntegrityError
 from app.core.security import (
     create_access_token,
     create_refresh_token,
@@ -21,7 +21,6 @@ class AuthService:
         self.repository = AuthRepository(db)
 
     def register_user(self, user: UserCreate) -> User:
-
         if self.repository.get_by_email(user.email):
             raise HTTPException(
                 status_code=status.HTTP_409_CONFLICT,
@@ -36,16 +35,26 @@ class AuthService:
 
         password_hash = hash_password(user.password)
 
-        created_user = self.repository.create(
-            email=user.email,
-            username=user.username,
-            full_name=user.full_name,
-            password_hash=password_hash,
-        )
+        try:
+            created_user = self.repository.create(
+                email=user.email,
+                username=user.username,
+                full_name=user.full_name,
+                password_hash=password_hash,
+            )
 
-        self.db.commit()
+            self.db.commit()
+            self.db.refresh(created_user)
 
-        return created_user
+            return created_user
+
+        except IntegrityError:
+            self.db.rollback()
+
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT,
+                detail="Email or username already exists",
+            )
 
     def authenticate_user(
         self,
