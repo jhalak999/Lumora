@@ -1,18 +1,19 @@
-from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm import Session
+
 from app.core.security import (
     create_access_token,
     create_refresh_token,
     hash_password,
     verify_password,
 )
+from app.features.auth.models import User
 from app.features.auth.repository import AuthRepository
 from app.features.auth.schemas import (
     TokenResponse,
     UserCreate,
 )
-from app.features.auth.models import User
 
 
 class AuthService:

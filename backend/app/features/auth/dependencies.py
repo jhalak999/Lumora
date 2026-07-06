@@ -1,14 +1,11 @@
 from fastapi import Depends, HTTPException, status
-from jose import JWTError
+from fastapi.security import HTTPAuthorizationCredentials
 from sqlalchemy.orm import Session
 
 from app.core.security import decode_token, security
 from app.database.dependencies import get_db
-from app.features.auth.models import User
 from app.features.auth.service import AuthService
 
-
-from fastapi.security import HTTPAuthorizationCredentials
 
 def get_current_user(
     credentials: HTTPAuthorizationCredentials = Depends(security),
@@ -20,7 +17,7 @@ def get_current_user(
 
         user_id = payload["sub"]
 
-    except (JWTError, KeyError, ValueError):
+    except (KeyError, ValueError):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid authentication credentials",

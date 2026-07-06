@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 
 from app.features.auth.models import User
 
+
 class AuthRepository:
     def __init__(self, db: Session):
         self.db = db

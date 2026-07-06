@@ -1,6 +1,10 @@
 line-length = 88
 target-version = "py313"
 
+exclude = [
+    "alembic/versions",
+]
+
 [lint]
 select = [
     "E",

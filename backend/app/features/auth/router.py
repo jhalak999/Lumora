@@ -1,8 +1,9 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
+
+from app.database.dependencies import get_db
 from app.features.auth.dependencies import get_current_user
 from app.features.auth.models import User
-from app.database.dependencies import get_db
 from app.features.auth.schemas import (
     TokenResponse,
     UserCreate,

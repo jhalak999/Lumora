@@ -1,7 +1,6 @@
 from app.core.security import hash_password
 from app.database.session import SessionLocal
 from app.features.auth.repository import AuthRepository
-from app.features.auth.schemas import UserCreate
 
 
 def main():

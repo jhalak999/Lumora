@@ -1,15 +1,13 @@
 from datetime import datetime, timedelta, timezone
 from typing import Any
-from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
+
+from fastapi.security import HTTPBearer
 from jose import JWTError, jwt
 from pwdlib import PasswordHash
 
 from app.core.config import settings
 
 password_hash = PasswordHash.recommended()
-from fastapi.security import HTTPBearer
-
 security = HTTPBearer()
 
 def hash_password(password: str) -> str:
