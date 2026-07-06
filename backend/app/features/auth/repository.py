@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 from app.features.auth.models import User
 from app.features.auth.schemas import UserCreate
-
+from uuid import UUID
 
 class AuthRepository:
     def __init__(self, db: Session):
@@ -19,8 +19,13 @@ class AuthRepository:
         stmt = select(User).where(User.username == username)
         return self.db.scalar(stmt)
 
-    def get_by_id(self, user_id: UUID) -> User | None:
+    def get_by_id(self, user_id: str | UUID) -> User | None:
+
+        if isinstance(user_id, str):
+            user_id = UUID(user_id)
+
         stmt = select(User).where(User.id == user_id)
+
         return self.db.scalar(stmt)
 
     def create(
@@ -39,7 +44,7 @@ class AuthRepository:
         )
 
         self.db.add(user)
-        self.db.commit()
+        self.db.flush()
         self.db.refresh(user)
 
         return user

@@ -1,0 +1,54 @@
+# ===========================
+# Python
+# ===========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Virtual Environment
+.venv/
+venv/
+
+# Environment
+.env
+.env.*
+
+# Database
+*.db
+*.sqlite3
+
+# Alembic
+alembic/versions/
+
+# Logs
+*.log
+
+# macOS
+.DS_Store
+
+# VSCode
+.vscode/
+
+# Pytest
+.pytest_cache/
+
+# Coverage
+.coverage
+htmlcov/
+
+# Build
+dist/
+build/
+
+# ===========================
+# Node
+# ===========================
+node_modules/
+
+# React
+frontend/dist/
+
+# Misc
+.idea/
