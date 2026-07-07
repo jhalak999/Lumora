@@ -1,11 +1,5 @@
-function App() {
-  return (
-    <div className="min-h-screen flex items-center justify-center">
-      <h1 className="text-4xl font-bold">
-        Lumora 🚀
-      </h1>
-    </div>
-  );
-}
+import AppRouter from "@/routes/AppRouter";
 
-export default App;
+export default function App() {
+  return <AppRouter />;
+}
