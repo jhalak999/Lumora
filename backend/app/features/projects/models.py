@@ -36,3 +36,9 @@ class Project(UUIDMixin, TimestampMixin, Base):
         "User",
         back_populates="projects",
     )
+
+    generations = relationship(
+        "Generation",
+        back_populates="project",
+        cascade="all, delete-orphan",
+    )

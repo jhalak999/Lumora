@@ -27,6 +27,9 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
+    openrouter_api_key: str
+    default_model: str = "deepseek/deepseek-chat-v3-0324"
+
 
 @lru_cache
 def get_settings() -> Settings:
